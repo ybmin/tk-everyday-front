@@ -4,7 +4,7 @@ import CalendarPage from "pages/Calendar";
 import DashboardPage from "pages/Dashboard";
 import EventsPage from "pages/Events";
 import HomePage from "pages/Home";
-import LoginPage from "pages/Login";
+import SignupPage from "pages/Signup";
 import ProfilesPage from "pages/Profiles";
 import SigninPage from "pages/Signin";
 import AdminPage from "pages/Admin";
@@ -18,7 +18,7 @@ const SpecificRouter = () => {
         {/* admin page 클랜장 관리 페이지 */}
         <Route path="/admin" element={<AdminPage />} />
         {/* 클랜원들 계정 가능하게 */}
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/profile" element={<ProfilesPage />} />
         {/* rating  계급 가져오는거 + cron으로 00:00 업데이트, 1달 내 차이점 요약 */}

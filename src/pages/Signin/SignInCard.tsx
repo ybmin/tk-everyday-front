@@ -15,6 +15,7 @@ import { styled } from "@mui/material/styles";
 
 import ForgotPassword from "./ForgotPassword";
 import { KakaoIcon, SitemarkIcon } from "./CustomIcons";
+import axios from "axios";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -49,13 +50,31 @@ export default function SignInCard() {
     setOpen(false);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/token",
+        {
+          username: data.get("email"),
+          password: data.get("password"),
+        },
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      );
+      alert("Login successful!");
+      // 로그인 성공 시 토큰 저장 및 리다이렉트
+      localStorage.setItem("token", response.data.access_token);
+    } catch (error) {
+      alert("Login failed. Please check your email and password.");
+    }
+  };
+
+  const handleKakaoLogin = () => {
+    window.location.href = "http://localhost:8000/auth/kakao"; // 백엔드에서 카카오 로그인 URL로 리다이렉트
   };
 
   const validateInputs = () => {
@@ -176,7 +195,7 @@ export default function SignInCard() {
           type="submit"
           fullWidth
           variant="outlined"
-          onClick={() => alert("Sign in with Kakao")}
+          onClick={handleKakaoLogin}
           style={{ backgroundColor: "#FFEB00", color: "#3C1E1E" }}
           startIcon={<KakaoIcon />}
         >

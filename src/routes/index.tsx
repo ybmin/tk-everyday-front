@@ -8,6 +8,7 @@ import SignupPage from "pages/Signup";
 import ProfilesPage from "pages/Profiles";
 import SigninPage from "pages/Signin";
 import AdminPage from "pages/Admin";
+import KakaoCallback from "pages/KakaoCallback";
 
 const SpecificRouter = () => {
   return (
@@ -20,6 +21,7 @@ const SpecificRouter = () => {
         {/* 클랜원들 계정 가능하게 */}
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signin" element={<SigninPage />} />
+        <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
         <Route path="/profile" element={<ProfilesPage />} />
         {/* rating  계급 가져오는거 + cron으로 00:00 업데이트, 1달 내 차이점 요약 */}
         <Route path="/dashboard" element={<DashboardPage />} />

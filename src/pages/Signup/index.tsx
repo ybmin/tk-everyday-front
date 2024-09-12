@@ -17,6 +17,7 @@ import getSignUpTheme from "./theme/getSignUpTheme";
 import { SitemarkIcon, KakaoIcon } from "./CustomIcons";
 import TemplateFrame from "./TemplateFrame";
 import { PaletteMode } from "@mui/material";
+import axios from "axios";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -122,15 +123,26 @@ export default function SignupPage() {
     return isValid;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get("name"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    try {
+      const response = await axios.post("http://localhost:8000/register", {
+        email: data.get("email"),
+        password: data.get("password"),
+        nickname: data.get("nickname"),
+      });
+      alert("Registration successful!");
+      // 회원가입 성공 시 로그인 페이지로 이동
+      window.location.href = "/login";
+    } catch (error: any) {
+      alert("Registration failed. " + error.response.data.detail);
+    }
+  };
+
+  const handleKakaoLogin = () => {
+    // 백엔드에서 카카오 로그인 URL로 리다이렉트
+    window.location.href = "http://localhost:8000/auth/kakao";
   };
 
   return (
@@ -166,13 +178,13 @@ export default function SignupPage() {
                 sx={{ display: "flex", flexDirection: "column", gap: 2 }}
               >
                 <FormControl>
-                  <FormLabel htmlFor="name">닉네임</FormLabel>
+                  <FormLabel htmlFor="nickname">닉네임</FormLabel>
                   <TextField
-                    autoComplete="name"
-                    name="name"
+                    autoComplete="nickname"
+                    name="nickname"
                     required
                     fullWidth
-                    id="name"
+                    id="nickname"
                     placeholder="EveryDay"
                     error={nameError}
                     helperText={nameErrorMessage}
@@ -246,7 +258,7 @@ export default function SignupPage() {
                   fullWidth
                   variant="outlined"
                   style={{ backgroundColor: "#FFEB00", color: "#3C1E1E" }}
-                  onClick={() => alert("Sign up with Kakao")}
+                  onClick={handleKakaoLogin}
                   startIcon={<KakaoIcon />}
                 >
                   카카오로 가입하기

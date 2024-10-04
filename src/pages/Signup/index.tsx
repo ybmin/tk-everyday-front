@@ -127,7 +127,7 @@ export default function SignupPage() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      const response = await axios.post("http://localhost:8000/register", {
+      await axios.post("http://localhost:8000/register", {
         email: data.get("email"),
         password: data.get("password"),
         nickname: data.get("nickname"),

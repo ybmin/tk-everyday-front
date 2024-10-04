@@ -2,16 +2,12 @@ import * as React from "react";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
 import { PaletteMode } from "@mui/material";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import ToggleColorMode from "./ToggleColorMode";
 import getSignInSideTheme from "./theme/getSignInSideTheme";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
@@ -44,9 +40,6 @@ export default function TemplateFrame({
   toggleColorMode,
   children,
 }: TemplateFrameProps) {
-  const handleChange = (event: SelectChangeEvent) => {
-    toggleCustomTheme(event.target.value === "custom");
-  };
   const signInSideTheme = createTheme(getSignInSideTheme(mode));
 
   return (

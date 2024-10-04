@@ -3,48 +3,48 @@ name: Deploy React App to Oracle Cloud
 on:
   push:
     branches:
-      - main  # main 브랜치에 push할 때마다 실행
+      - main # main 브랜치에 push할 때마다 실행
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. 리포지토리 클론
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      # 1. 리포지토리 클론
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    # 2. Node.js 설치
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
+      # 2. Node.js 설치
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
 
-    # 3. 종속성 설치 (yarn 사용 시 변경 가능)
-    - name: Install dependencies
-      run: npm install
+      # 3. 종속성 설치 (yarn 사용 시 변경 가능)
+      - name: Install dependencies
+        run: npm install
 
-    # 4. 애플리케이션 빌드
-    - name: Build the project
-      run: npm run build
+      # 4. 애플리케이션 빌드
+      - name: Build the project
+        run: npm run build
 
-    # 5. Oracle Cloud A1 서버로 파일 전송
-    - name: Copy files via SSH
-      uses: appleboy/scp-action@v0.1.5
-      with:
-        host: ${{ secrets.ORACLE_HOST }}
-        username: ${{ secrets.ORACLE_USERNAME }}
-        key: ${{ secrets.ORACLE_SSH_KEY }}
-        source: "build/"
-        target: "/home/ubuntu/my-app/build/"
+      # 5. Oracle Cloud A1 서버로 파일 전송
+      - name: Copy files via SSH
+        uses: appleboy/scp-action@v0.1.5
+        with:
+          host: ${{ secrets.ORACLE_HOST }}
+          username: ${{ secrets.ORACLE_USERNAME }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          source: "build/"
+          target: "/home/ubuntu/tkFront/"
 
-    # 6. Oracle 서버에서 앱 실행 (서버에서 npm install을 이미 마쳤다고 가정)
-    - name: Run app on Oracle server
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.ORACLE_HOST }}
-        username: ${{ secrets.ORACLE_USERNAME }}
-        key: ${{ secrets.ORACLE_SSH_KEY }}
-        script: |
-          cd /home/ubuntu/my-app/build/
-          serve -s . -l 3000  # 필요에 따라 serve 명령어 수정
+      # 6. Oracle 서버에서 앱 실행 (서버에서 npm install을 이미 마쳤다고 가정)
+      - name: Run app on Oracle server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.ORACLE_HOST }}
+          username: ${{ secrets.ORACLE_USERNAME }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          script: |
+            cd /home/ubuntu/tkFront/build/
+            serve -s . -l 3000  # 필요에 따라 serve 명령어 수정

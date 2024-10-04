@@ -48,4 +48,4 @@ jobs:
           script: |
             exec bash \-l
             cd /home/ubuntu/tkFront/build
-            serve -s . -l 3000
+            nohup serve -s . -l 3000 &

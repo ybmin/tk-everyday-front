@@ -47,4 +47,4 @@ jobs:
           key: ${{ secrets.ORACLE_SSH_KEY }}
           script: |
             cd /home/ubuntu/tkFront/build/
-            serve -s . -l 3000  # 필요에 따라 serve 명령어 수정
+            serve -s . -l 3000

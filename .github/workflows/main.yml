@@ -30,13 +30,15 @@ jobs:
 
       # 5. Oracle Cloud A1 서버로 파일 전송
       - name: Copy files via SSH
-        uses: appleboy/scp-action@v0.1.5
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.ORACLE_HOST }}
           username: ${{ secrets.ORACLE_USERNAME }}
           key: ${{ secrets.ORACLE_SSH_KEY }}
-          source: "build/"
-          target: "/home/ubuntu/tkFront/"
+          script: |
+            rm -rf /home/ubuntu/tkFront/build
+            mkdir -p /home/ubuntu/tkFront/build
+            scp -r -o StrictHostKeyChecking=no -i ${{ secrets.ORACLE_SSH_KEY }} build/* ${{ secrets.ORACLE_USERNAME }}@${{ secrets.ORACLE_HOST }}:/home/ubuntu/tkFront/
 
       # 6. Oracle 서버에서 앱 실행 (서버에서 npm install을 이미 마쳤다고 가정)
       - name: Run app on Oracle server

@@ -46,6 +46,6 @@ jobs:
           username: ${{ secrets.ORACLE_USERNAME }}
           key: ${{ secrets.ORACLE_SSH_KEY }}
           script: |
-            sudo npm install -g serve
+            exec bash \-l
             cd /home/ubuntu/tkFront/build
             serve -s . -l 3000

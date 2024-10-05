@@ -1,7 +1,12 @@
 import SpecificRouter from "routes";
+import { AuthProvider } from "utils/auth";
 
 function App() {
-  return <SpecificRouter />;
+  return (
+    <AuthProvider>
+      <SpecificRouter />
+    </AuthProvider>
+  );
 }
 
 export default App;

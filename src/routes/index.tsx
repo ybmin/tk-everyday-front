@@ -8,7 +8,8 @@ import SignupPage from "pages/Signup";
 import ProfilesPage from "pages/Profiles";
 import SigninPage from "pages/Signin";
 import AdminPage from "pages/Admin";
-import KakaoCallback from "pages/KakaoCallback";
+import LoginCallback from "pages/LoginCallback";
+import BlogPage from "pages/Blog";
 
 const SpecificRouter = () => {
   return (
@@ -21,8 +22,8 @@ const SpecificRouter = () => {
         {/* 클랜원들 계정 가능하게 */}
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/signin" element={<SigninPage />} />
-        <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
         <Route path="/profile" element={<ProfilesPage />} />
+        <Route path="/login" element={<LoginCallback />} />
         {/* rating  계급 가져오는거 + cron으로 00:00 업데이트, 1달 내 차이점 요약 */}
         <Route path="/dashboard" element={<DashboardPage />} />
         {/* 캘린더 (admin 편집 가능) */}
@@ -33,6 +34,7 @@ const SpecificRouter = () => {
         {/* TODO: 회의록 보는 페이지 + 회의 안건 추가 */}
         {/* TODO: 클랜 단체 계좌 내역 공유 (아마 수기로 해야할 듯) */}
         {/* TODO: 정보 사이트 공개적으로 올려서 많은 사람들이 볼 수 있는 거 */}
+        <Route path="/blogs" element={<BlogPage />} />
         {/* TODO: (추후) 인턴 관리 */}
       </Routes>
     </BrowserRouter>

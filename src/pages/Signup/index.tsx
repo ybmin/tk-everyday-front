@@ -129,8 +129,8 @@ export default function SignupPage() {
     try {
       const response = await axios.post("http://localhost:8000/register", {
         email: data.get("email"),
-        password: data.get("password"),
         nickname: data.get("nickname"),
+        password: data.get("password"),
       });
       alert("Registration successful!");
       // 회원가입 성공 시 로그인 페이지로 이동
@@ -240,7 +240,7 @@ export default function SignupPage() {
                   이미 계정이 있으신가요?{" "}
                   <span>
                     <Link
-                      href="/material-ui/getting-started/templates/sign-in/"
+                      href="/signin"
                       variant="body2"
                       sx={{ alignSelf: "center" }}
                     >

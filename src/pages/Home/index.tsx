@@ -7,8 +7,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://ybminm.me/">
+        ybminm
       </Link>{" "}
       {new Date().getFullYear()}.
     </Typography>
@@ -20,7 +20,7 @@ const HomePage = () => {
     <Container maxWidth="sm">
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-          Material UI Create React App example in TypeScript
+          Tekken Everyday Site
         </Typography>
         <ProTip />
         <Copyright />

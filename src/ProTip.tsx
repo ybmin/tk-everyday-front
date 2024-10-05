@@ -1,4 +1,3 @@
-import * as React from "react";
 import Link from "@mui/material/Link";
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
 import Typography from "@mui/material/Typography";
@@ -15,11 +14,11 @@ export default function ProTip() {
   return (
     <Typography sx={{ mt: 6, mb: 3, color: "text.secondary" }}>
       <LightBulbIcon sx={{ mr: 1, verticalAlign: "middle" }} />
-      {"Pro tip: See more "}
-      <Link href="https://mui.com/material-ui/getting-started/templates/">
-        templates
-      </Link>
-      {" in the Material UI documentation."}
+      {"개발 중인 사이트입니다. 관심 있는 분들은  "}
+      <Link href="https://github.com/ybmin/tk-everyday-front/">깃헙 레포</Link>
+      {"나 "}
+      <Link href="https://ybminm.me/">개발자 연락처</Link>
+      {" 를 참고해주세요."}
     </Typography>
   );
 }

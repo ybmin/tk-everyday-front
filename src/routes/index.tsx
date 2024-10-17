@@ -12,41 +12,43 @@ import AdminPage from "pages/Admin";
 import BlogPage from "pages/Blog";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import TurnstilePage from "pages/Turnstile";
+import BlogWritePage from "pages/BlogWrite";
 
 const SpecificRouter = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
-  useEffect(() => {
-    const validate = async () => {
-      const token = sessionStorage.getItem("turnstile");
-      if (token) {
-        try {
-          const response = await axios.post(
-            "http://localhost:8000/verify-turnstile",
-            { token: token },
-            {
-              headers: { "Content-Type": "application/json" },
-            }
-          );
-          if (response.data.success) {
-            setIsAuthenticated(true);
-          } else {
-            setIsAuthenticated(false);
-            sessionStorage.removeItem("turnstile");
-          }
-        } catch (error) {
-          setIsAuthenticated(false);
-          sessionStorage.removeItem("turnstile");
-        }
-      }
-    };
-    validate();
-  }, []);
+  // useEffect(() => {
+  //   const validate = async () => {
+  //     const token = sessionStorage.getItem("turnstile");
+  //     if (token) {
+  //       try {
+  //         const response = await axios.post(
+  //           "http://localhost:8000/verify-turnstile",
+  //           { token: token },
+  //           {
+  //             headers: { "Content-Type": "application/json" },
+  //           }
+  //         );
+  //         if (response.data.success) {
+  //           setIsAuthenticated(true);
+  //         } else {
+  //           setIsAuthenticated(false);
+  //           sessionStorage.removeItem("turnstile");
+  //         }
+  //       } catch (error) {
+  //         setIsAuthenticated(false);
+  //         sessionStorage.removeItem("turnstile");
+  //       }
+  //     }
+  //   };
+  //   validate();
+  // }, []);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/turnstile" element={<SigninPage />} />
+        <Route path="/turnstile" element={<TurnstilePage />} />
         {/* 클랜 소개 static page */}
         <Route
           path="/"
@@ -149,6 +151,16 @@ const SpecificRouter = () => {
           }
         />
         {/* TODO: (추후) 인턴 관리 */}
+        <Route
+          path="/blogs/write"
+          element={
+            isAuthenticated ? (
+              <BlogWritePage />
+            ) : (
+              <Navigate replace to="/turnstile" />
+            )
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

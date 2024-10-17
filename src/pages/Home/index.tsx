@@ -99,8 +99,8 @@ export default function HomePage() {
           <Divider />
           <Highlights />
           <Divider />
-          <Pricing />
-          <Divider />
+          {/* <Pricing /> */}
+          {/* <Divider /> */}
           <FAQ />
           <Divider />
           <Footer />

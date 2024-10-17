@@ -8,11 +8,19 @@ import Typography from "@mui/material/Typography";
 
 import { styled } from "@mui/material/styles";
 
-import DevicesRoundedIcon from "@mui/icons-material/DevicesRounded";
-import EdgesensorHighRoundedIcon from "@mui/icons-material/EdgesensorHighRounded";
+import ScheduleRoundedIcon from "@mui/icons-material/ScheduleRounded";
+import EditNoteRoundedIcon from "@mui/icons-material/EditNoteRounded";
 import ViewQuiltRoundedIcon from "@mui/icons-material/ViewQuiltRounded";
 
 const items = [
+  {
+    icon: <ScheduleRoundedIcon />,
+    title: "회의록 및 일정",
+    description:
+      "클랜에서 진행하는 모임의 일정과 회의록을 확인할 수 있는 기능을 제공합니다.",
+    imageLight:
+      'url("/static/images/templates/templates-images/devices-light.png")',
+  },
   {
     icon: <ViewQuiltRoundedIcon />,
     title: "대시보드",
@@ -22,19 +30,10 @@ const items = [
       'url("/static/images/templates/templates-images/dash-light.png")',
   },
   {
-    icon: <EdgesensorHighRoundedIcon />,
-    title: "Mobile integration",
-    description:
-      "This item could provide information about the mobile app version of the product.",
+    icon: <EditNoteRoundedIcon />,
+    title: "블로그",
+    description: "클랜원들이 자유롭게 글을 게시할 수 있는 블로그를 제공합니다.",
     image: 'url("/static/images/templates/templates-images/mobile-light.png")',
-  },
-  {
-    icon: <DevicesRoundedIcon />,
-    title: "Available on all platforms",
-    description:
-      "This item could let users know the product is available on all platforms, such as web, mobile, and desktop.",
-    imageLight:
-      'url("/static/images/templates/templates-images/devices-light.png")',
   },
 ];
 

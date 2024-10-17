@@ -2423,6 +2423,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@marsidev/react-turnstile@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@marsidev/react-turnstile@npm:1.0.2"
+  peerDependencies:
+    react: ^17.0.2 || ^18.0.0
+    react-dom: ^17.0.2 || ^18.0.0
+  checksum: 055df7ffa27d12fbb8a4552dabed5e253a8da9c4194ef94e7e009653f56e5830542a90e8b4da791ab0f96c0dec39a27740309eac07ddae2035ce8f2f79f6056b
+  languageName: node
+  linkType: hard
+
 "@mui/core-downloads-tracker@npm:^5.16.7":
   version: 5.16.7
   resolution: "@mui/core-downloads-tracker@npm:5.16.7"
@@ -13143,6 +13153,7 @@ __metadata:
     "@aldabil/react-scheduler": ^2.9.5
     "@emotion/react": ^11.13.3
     "@emotion/styled": ^11.13.0
+    "@marsidev/react-turnstile": ^1.0.2
     "@mui/icons-material": ^5.16.7
     "@mui/material": ^5.16.7
     "@testing-library/jest-dom": ^5.14.1

@@ -27,7 +27,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import { styled } from "@mui/system";
+import { styled } from "@mui/material/styles";
 import { Theme } from "@mui/material/styles";
 import theme from "constants/theme";
 

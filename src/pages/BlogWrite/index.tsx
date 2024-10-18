@@ -20,11 +20,11 @@ import {
   DialogButton,
   usePublisher,
   insertDirective$,
-  directivesPlugin,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
 
 import getBlogTheme from "./theme/getBlogTheme";
+import { Youtube } from "./components/Editor";
 
 export default function BlogWritePage() {
   const [mode] = React.useState<PaletteMode>("dark");
@@ -91,35 +91,7 @@ export default function BlogWritePage() {
               backgroundColor: "white",
             }}
           >
-            <MDXEditor
-              ref={ref}
-              markdown="hello world"
-              onChange={console.log}
-              plugins={[
-                toolbarPlugin({
-                  toolbarContents: () => (
-                    <>
-                      <UndoRedo />
-                      <BoldItalicUnderlineToggles />
-                      <StrikeThroughSupSubToggles />
-                      {/* <InsertLink /> */}
-                      <InsertImage />
-                      {/* <InsertAdmonition /> */}
-                      <YouTubeButton />
-                    </>
-                  ),
-                }),
-                headingsPlugin(),
-                markdownShortcutPlugin(),
-                // directivesPlugin({
-                //   directiveDescriptors: [YoutubeDirectiveDescriptor],
-                // }),
-                // linkPlugin(),
-                // linkDialogPlugin({
-                //   linkAutocompleteSuggestions: ["https://tk-everyday.site"],
-                // }),
-              ]}
-            />
+            <Youtube />
           </Container>
         </Container>
         <Footer />

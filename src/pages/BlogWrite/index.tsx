@@ -6,22 +6,15 @@ import {
   Button,
   FormControl,
   FormHelperText,
-  InputLabel,
   MenuItem,
   PaletteMode,
   Select,
   TextField,
 } from "@mui/material";
 import AppAppBar from "./components/AppAppBar";
-import Footer from "./components/Footer";
 import TemplateFrame from "./TemplateFrame";
 
-import {
-  MDXEditorMethods,
-  DialogButton,
-  usePublisher,
-  insertDirective$,
-} from "@mdxeditor/editor";
+import { MDXEditorMethods } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
 
 import getBlogTheme from "./theme/getBlogTheme";
@@ -29,7 +22,6 @@ import { TekkenMarkdownEditor } from "./components/Editor";
 import { useAuth } from "utils/auth";
 import axios from "axios";
 import { BackEndUrl } from "utils/loadEnv";
-import { Navigate } from "react-router-dom";
 
 export default function BlogWritePage() {
   const [mode] = React.useState<PaletteMode>("dark");

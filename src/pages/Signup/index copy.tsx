@@ -1,25 +1,22 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
-import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import getSignUpTheme from "./theme/getSignUpTheme";
-import { SitemarkIcon, KakaoIcon, SteamIcon } from "./CustomIcons";
+import { SitemarkIcon, SteamIcon } from "./CustomIcons";
 import TemplateFrame from "./TemplateFrame";
 import { PaletteMode } from "@mui/material";
 import axios from "axios";
 import { BackEndUrl } from "utils/loadEnv";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useAuth } from "utils/auth";
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -66,7 +63,6 @@ export default function SigninNewPage() {
   const [nameErrorMessage, setNameErrorMessage] = React.useState("");
 
   const location = useLocation();
-  const navigate = useNavigate();
   const { saveToken } = useAuth();
 
   // This code only runs on the client side, to determine the system color preference
@@ -140,7 +136,7 @@ export default function SigninNewPage() {
     try {
       const polaris_id = data.get("polaris_id");
       if (!polaris_id) {
-        const response = await axios(`${BackEndUrl}/auth/link/email`, {
+        await axios(`${BackEndUrl}/auth/link/email`, {
           data: {
             email: data.get("email")?.toString(),
             nickname: data.get("nickname")?.toString(),
@@ -153,7 +149,7 @@ export default function SigninNewPage() {
           method: "POST",
         });
       } else {
-        const response = await axios(`${BackEndUrl}/auth/link/email`, {
+        await axios(`${BackEndUrl}/auth/link/email`, {
           data: {
             email: data.get("email")?.toString(),
             nickname: data.get("nickname")?.toString(),

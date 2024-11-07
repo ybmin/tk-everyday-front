@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { PaletteMode } from "@mui/material";
 import AppAppBar from "./components/AppAppBar";
-import MainContent from "./components/MainContent";
+// import MainContent from "./components/MainContent";
 import Latest from "./components/Latest";
 import Footer from "./components/Footer";
 import TemplateFrame from "./TemplateFrame";

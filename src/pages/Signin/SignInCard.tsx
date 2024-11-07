@@ -18,6 +18,7 @@ import { KakaoIcon, SitemarkIcon } from "./CustomIcons";
 import axios from "axios";
 import { useAuth } from "utils/auth";
 import { useNavigate } from "react-router-dom";
+import { BackEndUrl } from "utils/loadEnv";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -67,7 +68,7 @@ export default function SignInCard() {
     }
     try {
       const response = await axios.post(
-        "http://localhost:8000/login",
+        `${BackEndUrl}/login`,
         {
           email: data.get("email"),
           password: data.get("password"),
@@ -78,7 +79,7 @@ export default function SignInCard() {
       );
       alert("Login successful!");
       saveToken(response.data.access_token);
-      const userResponse = await axios.get("http://localhost:8000/users/me", {
+      const userResponse = await axios.get(`${BackEndUrl}/users/me`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${response.data.access_token}`,
@@ -92,7 +93,7 @@ export default function SignInCard() {
   };
 
   const handleKakaoLogin = () => {
-    window.location.href = "http://localhost:8000/auth/kakao"; // 백엔드에서 카카오 로그인 URL로 리다이렉트
+    window.location.href = `${BackEndUrl}/auth/kakao`; // 백엔드에서 카카오 로그인 URL로 리다이렉트
   };
 
   const validateInputs = () => {

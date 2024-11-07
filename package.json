@@ -11,6 +11,11 @@
     "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.7",
     "@mui/system": "^6.1.4",
+    "@mui/x-charts": "^7.22.0",
+    "@mui/x-data-grid": "^7.22.0",
+    "@mui/x-date-pickers": "^7.22.0",
+    "@mui/x-tree-view": "^7.22.0",
+    "@react-spring/web": "^9.7.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -19,6 +24,8 @@
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "axios": "^1.7.7",
+    "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
     "mdast-util-directive": "^3.0.0",
     "react": "^18.3.1",
     "react-calendar": "^5.0.0",
@@ -51,5 +58,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "browser": {
+    "crypto": false
   }
 }

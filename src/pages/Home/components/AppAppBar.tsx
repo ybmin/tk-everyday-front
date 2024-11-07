@@ -60,16 +60,44 @@ export default function AppAppBar() {
               <SitemarkIcon />
             </Button>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <Button variant="text" color="info" size="small">
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                onClick={() => {
+                  navigate("/calendar");
+                }}
+              >
                 일정표
               </Button>
-              <Button variant="text" color="info" size="small">
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                onClick={() => {
+                  navigate("/blogs");
+                }}
+              >
                 블로그
               </Button>
-              <Button variant="text" color="info" size="small">
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                onClick={() => {
+                  navigate("/events");
+                }}
+              >
                 하이라이트
               </Button>
-              <Button variant="text" color="info" size="small">
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                onClick={() => {
+                  navigate("/events");
+                }}
+              >
                 회의록
               </Button>
               <Button
@@ -77,16 +105,11 @@ export default function AppAppBar() {
                 color="info"
                 size="small"
                 sx={{ minWidth: 0 }}
+                onClick={() => {
+                  navigate("/tekken_user");
+                }}
               >
-                FAQ
-              </Button>
-              <Button
-                variant="text"
-                color="info"
-                size="small"
-                sx={{ minWidth: 0 }}
-              >
-                대시보드
+                철권 랭크 검색
               </Button>
             </Box>
           </Box>

@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import TurnstilePage from "pages/Turnstile";
 import BlogWritePage from "pages/BlogWrite";
+import SigninNewPage from "pages/Signup/index copy";
+// import TekkenUserPage from "pages/TekkenUser";
 
 const SpecificRouter = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -82,6 +84,7 @@ const SpecificRouter = () => {
             )
           }
         />
+        <Route path="/signin/new" element={<SigninNewPage />} />
         <Route
           path="/signin"
           element={
@@ -114,6 +117,16 @@ const SpecificRouter = () => {
             )
           }
         />
+        {/* <Route
+          path="/tekken_user/:id"
+          element={
+            isAuthenticated ? (
+              <TekkenUserPage />
+            ) : (
+              <Navigate replace to="/turnstile" />
+            )
+          }
+        /> */}
         {/* 캘린더 (admin 편집 가능) */}
         {/* https://mui.com/x/react-date-pickers/date-calendar/ */}
         <Route

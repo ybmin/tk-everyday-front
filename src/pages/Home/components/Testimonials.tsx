@@ -1,67 +1,71 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
-import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { Grid } from "@mui/material";
+import TekkenRankImage from "pages/BlogWrite/components/TekkenRankImage";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { BackEndUrl } from "utils/loadEnv";
+import { TekkenCharImage } from "pages/BlogWrite/components/TekkenCharImage";
 
 const userTestimonials = [
   {
-    avatar: <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />,
-    name: "Remy Sharp",
-    occupation: "Senior Engineer",
-    testimonial:
-      "I absolutely love how versatile this product is! Whether I'm tackling work projects or indulging in my favorite hobbies, it seamlessly adapts to my changing needs. Its intuitive design has truly enhanced my daily routine, making tasks more efficient and enjoyable.",
+    name: "WarQueen",
+    id: "3RHTmh8ThQ6j",
   },
   {
-    avatar: <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />,
-    name: "Travis Howard",
-    occupation: "Lead Product Designer",
-    testimonial:
-      "One of the standout features of this product is the exceptional customer support. In my experience, the team behind this product has been quick to respond and incredibly helpful. It's reassuring to know that they stand firmly behind their product.",
+    name: "ybminm",
+    id: "5m3qhrAgaHJr",
   },
   {
-    avatar: <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />,
-    name: "Cindy Baker",
-    occupation: "CTO",
-    testimonial:
-      "The level of simplicity and user-friendliness in this product has significantly simplified my life. I appreciate the creators for delivering a solution that not only meets but exceeds user expectations.",
+    name: "불바퀴",
+    id: "3GfHyrtmJR6Q",
   },
   {
-    avatar: <Avatar alt="Remy Sharp" src="/static/images/avatar/4.jpg" />,
-    name: "Julia Stewart",
-    occupation: "Senior Engineer",
-    testimonial:
-      "I appreciate the attention to detail in the design of this product. The small touches make a big difference, and it's evident that the creators focused on delivering a premium experience.",
+    name: "상회",
+    id: "65Ed4E2aGiJG",
   },
   {
-    avatar: <Avatar alt="Travis Howard" src="/static/images/avatar/5.jpg" />,
-    name: "John Smith",
-    occupation: "Product Designer",
-    testimonial:
-      "I've tried other similar products, but this one stands out for its innovative features. It's clear that the makers put a lot of thought into creating a solution that truly addresses user needs.",
+    name: "짜장면",
+    id: "4hqeY4YbhfrB",
   },
   {
-    avatar: <Avatar alt="Cindy Baker" src="/static/images/avatar/6.jpg" />,
-    name: "Daniel Wolf",
-    occupation: "CDO",
-    testimonial:
-      "The quality of this product exceeded my expectations. It's durable, well-designed, and built to last. Definitely worth the investment!",
+    name: "LARK",
+    id: "4g6Jbq8HRajh",
   },
+  {
+    name: "꼬마유령",
+    id: "3eDQhd5bBTyQ",
+  },
+  { name: "김노멀", id: "3hEbtB5qFm4J" },
+  { name: "레이븐데뷔생", id: "3bGRbbTba8Ba" },
+  { name: "KATASTRY", id: "2Qhqfdb9yMyQ" },
+  { name: "춘식이", id: "5gMtFb4YDnTn" },
+  { name: "여우", id: "3MNE44FaeGdn" },
+  { name: "Ninesquare", id: "5Dr2JfNb7QMG" },
+  { name: "GangKing", id: "5eb5in879ehh" },
+  { name: "규", id: "4i7jYFEyhY24" },
+  { name: "Voyy", id: "3yYmLBALt4fh" },
+  { name: "주먹밥", id: "5m8YretfTgdy" },
+  { name: "소림", id: "2JgJA5fL5qQy" },
 ];
 
-// const whiteLogos = [1, 2, 3, 4, 5, 6];
-
-// const logoStyle = {
-//   width: "64px",
-//   opacity: 0.3,
-// };
-
 export default function Testimonials() {
-  // const logos = whiteLogos;
+  const [userData, setUserData] = useState<{ [key: string]: any }>({});
+
+  useEffect(() => {
+    userTestimonials.forEach(async (testimonial) => {
+      try {
+        const response = await axios.get(
+          `${BackEndUrl}/tekken_user/${testimonial.id}`
+        );
+        setUserData((prev) => ({ ...prev, [testimonial.id]: response.data }));
+      } catch (error) {
+        console.error(`Error fetching data for ID ${testimonial.id}:`, error);
+      }
+    });
+  }, []);
 
   return (
     <Container
@@ -95,44 +99,73 @@ export default function Testimonials() {
           구성원분들입니다.
         </Typography>
       </Box>
-      <Grid container spacing={2}>
-        {userTestimonials.map((testimonial, index) => (
-          <Grid xs={12} sm={6} md={4} key={index} sx={{ display: "flex" }}>
-            <Card
-              variant="outlined"
+      <Grid container spacing={2} alignSelf="center">
+        {userTestimonials.map((testimonial) => {
+          const data = userData[testimonial.id];
+          return data ? (
+            <Box
+              key={testimonial.id}
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "space-between",
-                flexGrow: 1,
+                alignItems: "flex-start",
+                marginBottom: 2,
+                width: 350,
+                marginLeft: { xs: 0, sm: 2 },
               }}
             >
-              <CardContent>
-                <Typography
-                  variant="body1"
-                  gutterBottom
-                  sx={{ color: "text.secondary" }}
-                >
-                  {testimonial.testimonial}
-                </Typography>
-              </CardContent>
               <Box
                 sx={{
                   display: "flex",
                   flexDirection: "row",
-                  justifyContent: "space-between",
+                  backgroundColor:
+                    testimonial.name === "WarQueen" ? "Highlight" : "Menu",
+                  borderRadius: 2,
+                  padding: 2,
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  window.open(
+                    `https://wank.wavu.wiki/player/${testimonial.id}`
+                  );
                 }}
               >
-                <CardHeader
-                  avatar={testimonial.avatar}
-                  title={testimonial.name}
-                  subheader={testimonial.occupation}
+                <TekkenCharImage
+                  char={data.characters
+                    .sort((a: any, b: any) => {
+                      if (b.char_rank === a.char_rank) {
+                        return b.char_played_games - a.char_played_games;
+                      }
+                      return b.char_rank - a.char_rank;
+                    })[0]
+                    ?.char_id.toString()}
                 />
-                {/* <RankIcon rank={logos[index]} /> */}
+                <Box sx={{ marginLeft: 1 }}>
+                  <Typography variant="h6">{data.nickname}</Typography>
+                  <Typography variant="subtitle2" color="text.secondary">
+                    {data.polaris_id}
+                  </Typography>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    {/* <TekkenRankImage rank={data.highest_rank} /> */}
+                    <TekkenRankImage
+                      rank={
+                        data.characters.sort((a: any, b: any) => {
+                          if (b.char_rank === a.char_rank) {
+                            return b.char_played_games - a.char_played_games;
+                          }
+                          return b.char_rank - a.char_rank;
+                        })[0]?.char_rank
+                      }
+                    />
+                    <Typography variant="body2">
+                      Tekken Power: {data.tekken_power}
+                    </Typography>
+                  </Box>
+                </Box>
               </Box>
-            </Card>
-          </Grid>
-        ))}
+            </Box>
+          ) : null;
+        })}
       </Grid>
     </Container>
   );

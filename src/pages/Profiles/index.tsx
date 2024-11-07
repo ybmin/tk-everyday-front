@@ -30,6 +30,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { styled } from "@mui/material/styles";
 import { Theme } from "@mui/material/styles";
 import theme from "constants/theme";
+import { BackEndUrl } from "utils/loadEnv";
 
 const drawerWidth = 240;
 
@@ -92,7 +93,7 @@ const ProfilesPage = () => {
     const fetchUserData = async () => {
       try {
         console.log("Token is found");
-        const response = await axios("http://localhost:8000/users/me", {
+        const response = await axios(`${BackEndUrl}/users/me`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

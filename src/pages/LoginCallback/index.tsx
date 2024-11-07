@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "utils/auth";
+import { BackEndUrl } from "utils/loadEnv";
 
 function LoginCallback() {
   // 쿼리 파라미터를 가져오기 위한 useLocation 훅 사용
@@ -21,7 +22,7 @@ function LoginCallback() {
       const fetchUserData = async () => {
         try {
           console.log("Token is found");
-          const response = await axios("http://localhost:8000/users/me", {
+          const response = await axios(`${BackEndUrl}/users/me`, {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,

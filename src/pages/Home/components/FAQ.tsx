@@ -80,7 +80,7 @@ export default function FAQ() {
             id="panel2d-header"
           >
             <Typography component="h3" variant="subtitle2">
-              Can I return the product if it doesn&apos;t meet my expectations?
+              회원가입은 어떻게 하나요?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -89,9 +89,9 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: "100%", md: "70%" } }}
             >
-              Absolutely! We offer a hassle-free return policy. If you&apos;re
-              not completely satisfied, you can return the product within
-              [number of days] days for a full refund or exchange.
+              회원가입은{" "}
+              <Link href="https://tk-everyday.com/signup"> 회원가입 </Link>
+              페이지에서 진행하실 수 있습니다.
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -105,7 +105,7 @@ export default function FAQ() {
             id="panel3d-header"
           >
             <Typography component="h3" variant="subtitle2">
-              What makes your product stand out from others in the market?
+              왜 카카오 계정으로만 회원가입이 가능한가요?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -114,10 +114,8 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: "100%", md: "70%" } }}
             >
-              Our product distinguishes itself through its adaptability,
-              durability, and innovative features. We prioritize user
-              satisfaction and continually strive to exceed expectations in
-              every aspect.
+              한 명의 유저가 다수의 계정을 생성하는 행위를 방지하기 위해 카카오
+              계정 연동을 필수로 요구하고 있습니다.
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -131,7 +129,7 @@ export default function FAQ() {
             id="panel4d-header"
           >
             <Typography component="h3" variant="subtitle2">
-              Is there a warranty on the product, and what does it cover?
+              (차단 이외의 사유로) 계정과 사이트 사용에 어려움이 있습니다.
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -140,10 +138,12 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: "100%", md: "70%" } }}
             >
-              Yes, our product comes with a [length of warranty] warranty. It
-              covers defects in materials and workmanship. If you encounter any
-              issues covered by the warranty, please contact our customer
-              support for assistance.
+              사이트 사용에 어려움이 있으신 경우{" "}
+              <Link href="https://open.kakao.com/o/s4xWXLWc">
+                {" "}
+                클랜장 오픈채팅방{" "}
+              </Link>
+              으로 문의해주세요.
             </Typography>
           </AccordionDetails>
         </Accordion>

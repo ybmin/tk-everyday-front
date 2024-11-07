@@ -1,139 +1,40 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import AvatarGroup from "@mui/material/AvatarGroup";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Pagination from "@mui/material/Pagination";
-import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  Typography,
+  Grid,
+  Box,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  CircularProgress,
+  Pagination,
+  AvatarGroup,
+  Avatar,
+  SelectChangeEvent,
+} from "@mui/material";
+import axios from "axios";
 import NavigateNextRoundedIcon from "@mui/icons-material/NavigateNextRounded";
+import { BackEndUrl } from "utils/loadEnv";
+import { AuthProvider, useAuth } from "utils/auth";
 
-const articleInfo = [
-  {
-    tag: "Engineering",
-    title: "The future of AI in software engineering",
-    description:
-      "Artificial intelligence is revolutionizing software engineering. Explore how AI-driven tools are enhancing development processes and improving software quality.",
-    authors: [
-      { name: "Remy Sharp", avatar: "/static/images/avatar/1.jpg" },
-      { name: "Travis Howard", avatar: "/static/images/avatar/2.jpg" },
-    ],
-  },
-  {
-    tag: "Product",
-    title: "Driving growth with user-centric product design",
-    description:
-      "Our user-centric product design approach is driving significant growth. Learn about the strategies we employ to create products that resonate with users.",
-    authors: [{ name: "Erica Johns", avatar: "/static/images/avatar/6.jpg" }],
-  },
-  {
-    tag: "Design",
-    title: "Embracing minimalism in modern design",
-    description:
-      "Minimalism is a key trend in modern design. Discover how our design team incorporates minimalist principles to create clean and impactful user experiences.",
-    authors: [{ name: "Kate Morrison", avatar: "/static/images/avatar/7.jpg" }],
-  },
-  {
-    tag: "Company",
-    title: "Cultivating a culture of innovation",
-    description:
-      "Innovation is at the heart of our company culture. Learn about the initiatives we have in place to foster creativity and drive groundbreaking solutions.",
-    authors: [{ name: "Cindy Baker", avatar: "/static/images/avatar/3.jpg" }],
-  },
-  {
-    tag: "Engineering",
-    title: "Advancing cybersecurity with next-gen solutions",
-    description:
-      "Our next-generation cybersecurity solutions are setting new standards in the industry. Discover how we protect our clients from evolving cyber threats.",
-    authors: [
-      { name: "Agnes Walker", avatar: "/static/images/avatar/4.jpg" },
-      { name: "Trevor Henderson", avatar: "/static/images/avatar/5.jpg" },
-    ],
-  },
-  {
-    tag: "Product",
-    title: "Enhancing customer experience through innovation",
-    description:
-      "Our innovative approaches are enhancing customer experience. Learn about the new features and improvements that are delighting our users.",
-    authors: [{ name: "Travis Howard", avatar: "/static/images/avatar/2.jpg" }],
-  },
-  {
-    tag: "Engineering",
-    title: "Pioneering sustainable engineering solutions",
-    description:
-      "Learn about our commitment to sustainability and the innovative engineering solutions we're implementing to create a greener future. Discover the impact of our eco-friendly initiatives.",
-    authors: [
-      { name: "Agnes Walker", avatar: "/static/images/avatar/4.jpg" },
-      { name: "Trevor Henderson", avatar: "/static/images/avatar/5.jpg" },
-    ],
-  },
-  {
-    tag: "Product",
-    title: "Maximizing efficiency with our latest product updates",
-    description:
-      "Our recent product updates are designed to help you maximize efficiency and achieve more. Get a detailed overview of the new features and improvements that can elevate your workflow.",
-    authors: [{ name: "Travis Howard", avatar: "/static/images/avatar/2.jpg" }],
-  },
-  {
-    tag: "Design",
-    title: "Designing for the future: trends and insights",
-    description:
-      "Stay ahead of the curve with the latest design trends and insights. Our design team shares their expertise on creating intuitive and visually stunning user experiences.",
-    authors: [{ name: "Kate Morrison", avatar: "/static/images/avatar/7.jpg" }],
-  },
-  {
-    tag: "Company",
-    title: "Our company's journey: milestones and achievements",
-    description:
-      "Take a look at our company's journey and the milestones we've achieved along the way. From humble beginnings to industry leader, discover our story of growth and success.",
-    authors: [{ name: "Cindy Baker", avatar: "/static/images/avatar/3.jpg" }],
-  },
-];
+interface Blog {
+  id: number;
+  title: string;
+  description: string;
+  category: string;
+  tags: string;
+  user_id: number;
+  created_at: string;
+  updated_at: string;
+  authors: Array<{ name: string; avatar: string }>;
+}
 
-const StyledTypography = styled(Typography)({
-  display: "-webkit-box",
-  WebkitBoxOrient: "vertical",
-  WebkitLineClamp: 2,
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-});
-
-const TitleTypography = styled(Typography)(({ theme }) => ({
-  position: "relative",
-  textDecoration: "none",
-  "&:hover": { cursor: "pointer" },
-  "& .arrow": {
-    visibility: "hidden",
-    position: "absolute",
-    right: 0,
-    top: "50%",
-    transform: "translateY(-50%)",
-  },
-  "&:hover .arrow": {
-    visibility: "visible",
-    opacity: 0.7,
-  },
-  "&:focus-visible": {
-    outline: "3px solid",
-    outlineColor: "hsla(210, 98%, 48%, 0.5)",
-    outlineOffset: "3px",
-    borderRadius: "8px",
-  },
-  "&::before": {
-    content: '""',
-    position: "absolute",
-    width: 0,
-    height: "1px",
-    bottom: 0,
-    left: 0,
-    backgroundColor: theme.palette.text.primary,
-    opacity: 0.3,
-    transition: "width 0.3s ease, opacity 0.3s ease",
-  },
-  "&:hover::before": {
-    width: "100%",
-  },
-}));
+const pageSize = 10;
 
 function Author({ authors }: { authors: { name: string; avatar: string }[] }) {
   return (
@@ -173,10 +74,57 @@ function Author({ authors }: { authors: { name: string; avatar: string }[] }) {
   );
 }
 
-export default function Latest() {
-  const [focusedCardIndex, setFocusedCardIndex] = React.useState<number | null>(
-    null
-  );
+const Latest: React.FC = () => {
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalBlogs, setTotalBlogs] = useState(0);
+  const [category, setCategory] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [focusedCardIndex, setFocusedCardIndex] = useState<number | null>(null);
+  const { token } = useAuth();
+
+  const fetchBlogs = async () => {
+    setLoading(true);
+    try {
+      const skip = (currentPage - 1) * pageSize;
+      const params: any = {
+        skip,
+        limit: pageSize,
+      };
+      if (category) {
+        params.category = category;
+      }
+      const response = await axios.get(BackEndUrl + "/blogs", {
+        params,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setBlogs(response.data.blogs);
+      setTotalBlogs(response.data.total);
+    } catch (error) {
+      console.error("블로그 데이터를 가져오는데 실패했습니다:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, [currentPage, category]);
+
+  const handleCategoryChange = (event: SelectChangeEvent<string>) => {
+    setCategory(event.target.value);
+    setCurrentPage(1); // 카테고리 변경 시 페이지를 첫 번째로 리셋
+  };
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setCurrentPage(value);
+  };
 
   const handleFocus = (index: number) => {
     setFocusedCardIndex(index);
@@ -186,61 +134,93 @@ export default function Latest() {
     setFocusedCardIndex(null);
   };
 
+  const totalPages = Math.ceil(totalBlogs / pageSize);
+
   return (
-    <div>
+    <Box sx={{ padding: 4 }}>
       <Typography variant="h2" gutterBottom>
-        Latest
+        게시물
       </Typography>
-      <Grid container spacing={8} columns={12} sx={{ my: 4 }}>
-        {articleInfo.map((article, index) => (
-          <Grid item xs={12} md={6}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                gap: 1,
-                height: "100%",
-              }}
-            >
-              <Typography gutterBottom variant="caption" component="div">
-                {article.tag}
-              </Typography>
-              <TitleTypography
-                gutterBottom
-                variant="h6"
+
+      {/* 카테고리 필터 */}
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 4 }}>
+        <FormControl variant="outlined" sx={{ minWidth: 200 }}>
+          <InputLabel id="category-select-label">카테고리</InputLabel>
+          <Select
+            labelId="category-select-label"
+            id="category-select"
+            value={category}
+            onChange={handleCategoryChange}
+            label="카테고리"
+          >
+            <MenuItem value="">
+              <em>전체</em>
+            </MenuItem>
+            <MenuItem value="잡담">잡담</MenuItem>
+            <MenuItem value="팁">팁</MenuItem>
+            <MenuItem value="자랑">자랑</MenuItem>
+            {/* 필요한 카테고리를 추가하세요 */}
+          </Select>
+        </FormControl>
+      </Box>
+
+      {/* 로딩 인디케이터 */}
+      {loading ? (
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Grid container spacing={4}>
+          {blogs.map((blog, index) => (
+            <Grid item xs={12} md={6} key={blog.id}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  gap: 1,
+                  height: "100%",
+                }}
                 onFocus={() => handleFocus(index)}
                 onBlur={handleBlur}
                 tabIndex={0}
                 className={focusedCardIndex === index ? "Mui-focused" : ""}
               >
-                {article.title}
-                <NavigateNextRoundedIcon
-                  className="arrow"
-                  sx={{ fontSize: "1rem" }}
-                />
-              </TitleTypography>
-              <StyledTypography
-                variant="body2"
-                color="text.secondary"
-                gutterBottom
-              >
-                {article.description}
-              </StyledTypography>
+                <Typography gutterBottom variant="h5" component="div">
+                  {blog.title}
+                  <NavigateNextRoundedIcon
+                    className="arrow"
+                    sx={{ fontSize: "1rem", marginLeft: 1 }}
+                  />
+                </Typography>
+                <Typography variant="body2" color="text.secondary" gutterBottom>
+                  {blog.description}
+                </Typography>
 
-              <Author authors={article.authors} />
-            </Box>
-          </Grid>
-        ))}
-      </Grid>
-      <Box sx={{ display: "flex", flexDirection: "row", pt: 4 }}>
+                <Author authors={blog.authors} />
+
+                <CardActions>
+                  <Button size="small" href={`/blogs/${blog.id}`}>
+                    자세히 보기
+                  </Button>
+                </CardActions>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      )}
+
+      {/* 페이지네이션 */}
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
         <Pagination
-          hidePrevButton
-          hideNextButton
-          count={10}
-          boundaryCount={10}
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
         />
       </Box>
-    </div>
+    </Box>
   );
-}
+};
+
+export default Latest;

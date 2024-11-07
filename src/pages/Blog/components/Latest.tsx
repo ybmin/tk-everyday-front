@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Grid,
   Box,
-  Card,
-  CardContent,
   CardActions,
   Button,
   Select,
@@ -20,7 +19,7 @@ import {
 import axios from "axios";
 import NavigateNextRoundedIcon from "@mui/icons-material/NavigateNextRounded";
 import { BackEndUrl } from "utils/loadEnv";
-import { AuthProvider, useAuth } from "utils/auth";
+import { useAuth } from "utils/auth";
 
 interface Blog {
   id: number;

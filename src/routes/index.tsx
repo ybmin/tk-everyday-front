@@ -11,7 +11,7 @@ import AdminPage from "pages/Admin";
 // import LoginCallback from "pages/LoginCallback";
 import BlogPage from "pages/Blog";
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import TurnstilePage from "pages/Turnstile";
 import BlogWritePage from "pages/BlogWrite";
 import SigninNewPage from "pages/Signup/index copy";
@@ -19,6 +19,7 @@ import SigninNewPage from "pages/Signup/index copy";
 
 const SpecificRouter = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
+  // const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   // useEffect(() => {
   //   const validate = async () => {
@@ -46,6 +47,10 @@ const SpecificRouter = () => {
   //   };
   //   validate();
   // }, []);
+
+  useEffect(() => {
+    setIsAuthenticated(true);
+  }, []);
 
   return (
     <BrowserRouter>

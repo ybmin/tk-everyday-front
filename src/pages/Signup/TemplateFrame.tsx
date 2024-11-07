@@ -61,7 +61,7 @@ export default function TemplateFrame({
               aria-label="Back to templates"
               startIcon={<ArrowBackRoundedIcon />}
               component="a"
-              href="/material-ui/getting-started/templates/"
+              href="/"
               sx={{ display: { xs: "none", sm: "flex" } }}
             >
               이전으로

@@ -18,6 +18,7 @@ import { SitemarkIcon, KakaoIcon } from "./CustomIcons";
 import TemplateFrame from "./TemplateFrame";
 import { PaletteMode } from "@mui/material";
 import axios from "axios";
+import { BackEndUrl } from "utils/loadEnv";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -127,10 +128,10 @@ export default function SignupPage() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      await axios.post("http://localhost:8000/register", {
+      const response = await axios.post(`${BackEndUrl}/register`, {
         email: data.get("email"),
-        password: data.get("password"),
         nickname: data.get("nickname"),
+        password: data.get("password"),
       });
       alert("Registration successful!");
       // 회원가입 성공 시 로그인 페이지로 이동
@@ -142,7 +143,7 @@ export default function SignupPage() {
 
   const handleKakaoLogin = () => {
     // 백엔드에서 카카오 로그인 URL로 리다이렉트
-    window.location.href = "http://localhost:8000/auth/kakao";
+    window.location.href = `${BackEndUrl}/auth/kakao`;
   };
 
   return (
@@ -177,7 +178,7 @@ export default function SignupPage() {
                 onSubmit={handleSubmit}
                 sx={{ display: "flex", flexDirection: "column", gap: 2 }}
               >
-                <FormControl>
+                {/* <FormControl>
                   <FormLabel htmlFor="nickname">닉네임</FormLabel>
                   <TextField
                     autoComplete="nickname"
@@ -229,18 +230,33 @@ export default function SignupPage() {
                   label="이메일로 변경사항에 대한 업데이트를 받겠습니다."
                 />
                 <Button
-                  type="submit"
-                  fullWidth
+                type="submit"
+                fullWidth
                   variant="contained"
                   onClick={validateInputs}
-                >
+                  >
                   가입하기
-                </Button>
+                  </Button> */}
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="outlined"
+                    style={{ backgroundColor: "#FFEB00", color: "#3C1E1E" }}
+                    onClick={handleKakaoLogin}
+                    startIcon={<KakaoIcon />}
+                  >
+                    카카오로 가입하기
+                  </Button>
+                </Box>
+                <Divider>
+                  <Typography sx={{ color: "text.secondary" }}>or</Typography>
+                </Divider>
                 <Typography sx={{ textAlign: "center" }}>
                   이미 계정이 있으신가요?{" "}
                   <span>
                     <Link
-                      href="/material-ui/getting-started/templates/sign-in/"
+                      href="/signin"
                       variant="body2"
                       sx={{ alignSelf: "center" }}
                     >
@@ -248,21 +264,6 @@ export default function SignupPage() {
                     </Link>
                   </span>
                 </Typography>
-              </Box>
-              <Divider>
-                <Typography sx={{ color: "text.secondary" }}>or</Typography>
-              </Divider>
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="outlined"
-                  style={{ backgroundColor: "#FFEB00", color: "#3C1E1E" }}
-                  onClick={handleKakaoLogin}
-                  startIcon={<KakaoIcon />}
-                >
-                  카카오로 가입하기
-                </Button>
               </Box>
             </Card>
           </Stack>

@@ -16,6 +16,9 @@ import { styled } from "@mui/material/styles";
 import ForgotPassword from "./ForgotPassword";
 import { KakaoIcon, SitemarkIcon } from "./CustomIcons";
 import axios from "axios";
+import { useAuth } from "utils/auth";
+import { useNavigate } from "react-router-dom";
+import { BackEndUrl } from "utils/loadEnv";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -38,9 +41,12 @@ const Card = styled(MuiCard)(({ theme }) => ({
 export default function SignInCard() {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
+  const [remember, setRemember] = React.useState(false);
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
   const [open, setOpen] = React.useState(false);
+  const { saveToken, saveUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -53,28 +59,41 @@ export default function SignInCard() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
+    if (remember) {
+      localStorage.removeItem("email");
+      localStorage.setItem("email", data.get("email") as string);
+    }
+    if (open) {
+      return;
+    }
     try {
       const response = await axios.post(
-        "http://localhost:8000/token",
+        `${BackEndUrl}/login`,
         {
-          username: data.get("email"),
+          email: data.get("email"),
           password: data.get("password"),
         },
         {
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          headers: { "Content-Type": "application/json" },
         }
       );
       alert("Login successful!");
-      // 로그인 성공 시 토큰 저장 및 리다이렉트
-      localStorage.setItem("token", response.data.access_token);
+      saveToken(response.data.access_token);
+      const userResponse = await axios.get(`${BackEndUrl}/users/me`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${response.data.access_token}`,
+        },
+      });
+      saveUser(userResponse.data);
+      navigate("/");
     } catch (error) {
       alert("Login failed. Please check your email and password.");
     }
   };
 
   const handleKakaoLogin = () => {
-    window.location.href = "http://localhost:8000/auth/kakao"; // 백엔드에서 카카오 로그인 URL로 리다이렉트
+    window.location.href = `${BackEndUrl}/auth/kakao`; // 백엔드에서 카카오 로그인 URL로 리다이렉트
   };
 
   const validateInputs = () => {
@@ -119,7 +138,6 @@ export default function SignInCard() {
       <Box
         component="form"
         onSubmit={handleSubmit}
-        noValidate
         sx={{ display: "flex", flexDirection: "column", width: "100%", gap: 2 }}
       >
         <FormControl>
@@ -134,6 +152,7 @@ export default function SignInCard() {
             autoComplete="email"
             autoFocus
             required
+            defaultValue={localStorage.getItem("email")}
             fullWidth
             variant="outlined"
             color={emailError ? "error" : "primary"}
@@ -168,7 +187,16 @@ export default function SignInCard() {
           />
         </FormControl>
         <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
+          control={
+            <Checkbox
+              value="remember"
+              color="primary"
+              onChange={(value) => {
+                setRemember(value.target.checked);
+              }}
+            />
+          }
+          id="remember"
           label="아이디 기억하기"
         />
         <ForgotPassword open={open} handleClose={handleClose} />

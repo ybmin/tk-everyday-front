@@ -90,7 +90,7 @@ export default function FAQ() {
               sx={{ maxWidth: { sm: "100%", md: "70%" } }}
             >
               회원가입은{" "}
-              <Link href="https://tk-everyday.com/signup"> 회원가입 </Link>
+              <Link href="https://tk-everyday.site/signup"> 회원가입 </Link>
               페이지에서 진행하실 수 있습니다.
             </Typography>
           </AccordionDetails>

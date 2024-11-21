@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import TurnstilePage from "pages/Turnstile";
 import BlogWritePage from "pages/BlogWrite";
 import SigninNewPage from "pages/Signup/index copy";
+import TourneyPage from "pages/Tourney";
 // import TekkenUserPage from "pages/TekkenUser";
 
 const SpecificRouter = () => {
@@ -67,6 +68,7 @@ const SpecificRouter = () => {
             )
           }
         />
+        <Route path="/tourney" element={<TourneyPage />} />
         {/* admin page 클랜장 관리 페이지 */}
         <Route
           path="/admin"

@@ -65,7 +65,7 @@ export default function AppAppBar() {
                 color="info"
                 size="small"
                 onClick={() => {
-                  navigate("/calendar");
+                  // navigate("/calendar");
                 }}
               >
                 일정표
@@ -75,7 +75,7 @@ export default function AppAppBar() {
                 color="info"
                 size="small"
                 onClick={() => {
-                  navigate("/blogs");
+                  // navigate("/blogs");
                 }}
               >
                 블로그
@@ -85,7 +85,7 @@ export default function AppAppBar() {
                 color="info"
                 size="small"
                 onClick={() => {
-                  navigate("/events");
+                  // navigate("/events");
                 }}
               >
                 하이라이트
@@ -95,7 +95,7 @@ export default function AppAppBar() {
                 color="info"
                 size="small"
                 onClick={() => {
-                  navigate("/events");
+                  // navigate("/events");
                 }}
               >
                 회의록
@@ -106,7 +106,7 @@ export default function AppAppBar() {
                 size="small"
                 sx={{ minWidth: 0 }}
                 onClick={() => {
-                  navigate("/tekken_user");
+                  // navigate("/tekken_user");
                 }}
               >
                 철권 랭크 검색
@@ -125,7 +125,7 @@ export default function AppAppBar() {
               variant="text"
               size="small"
               onClick={() => {
-                navigate("/signin");
+                // navigate("/signin");
               }}
             >
               로그인
@@ -135,7 +135,7 @@ export default function AppAppBar() {
               variant="contained"
               size="small"
               onClick={() => {
-                navigate("/signup");
+                // navigate("/signup");
               }}
             >
               회원 가입
@@ -171,7 +171,7 @@ export default function AppAppBar() {
                     variant="contained"
                     fullWidth
                     onClick={() => {
-                      navigate("/signup");
+                      // navigate("/signup");
                     }}
                   >
                     회원 가입
@@ -183,7 +183,7 @@ export default function AppAppBar() {
                     variant="outlined"
                     fullWidth
                     onClick={() => {
-                      navigate("/signin");
+                      // navigate("/signin");
                     }}
                   >
                     로그인

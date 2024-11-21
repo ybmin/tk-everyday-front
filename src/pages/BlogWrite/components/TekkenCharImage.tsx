@@ -188,20 +188,18 @@ const charData: TekkenCharType = charJson;
 
 export const TekkenCharImage = ({ char }: { char: string }) => {
   return (
-    <div>
-      <img
-        src={charData[char]?.src}
-        alt={charData[char]?.name}
-        style={{
-          maxWidth: 80,
-          maxHeight: 80,
-          borderRadius: 80,
-          minHeight: 20,
-          minWidth: 20,
-          width: "100%",
-          height: "auto",
-        }}
-      />
-    </div>
+    <img
+      src={charData[char]?.src}
+      alt={charData[char]?.name}
+      style={{
+        maxWidth: 80,
+        maxHeight: 80,
+        borderRadius: 80,
+        minHeight: 20,
+        minWidth: 20,
+        width: "100%",
+        height: "auto",
+      }}
+    />
   );
 };

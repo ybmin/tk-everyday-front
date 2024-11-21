@@ -38,7 +38,7 @@ import Divider from "@mui/material/Divider";
 import AppAppBar from "./components/AppAppBar";
 import Hero from "./components/Hero";
 import LogoCollection from "./components/LogoCollection";
-import Features from "./components/Features";
+// import Features from "./components/Features";
 import Testimonials from "./components/Testimonials";
 import FAQ from "./components/FAQ";
 // import Footer from "./components/Footer";
@@ -47,7 +47,7 @@ import TemplateFrame from "./TemplateFrame";
 import { PaletteMode } from "@mui/material";
 
 export default function HomePage() {
-  const [mode, setMode] = React.useState<PaletteMode>("light");
+  const [mode, setMode] = React.useState<PaletteMode>("dark");
   const [showCustomTheme, setShowCustomTheme] = React.useState(true);
   const MPTheme = createTheme(getMPTheme(mode));
   const defaultTheme = createTheme({ palette: { mode } });
@@ -91,7 +91,7 @@ export default function HomePage() {
         <Hero />
         <div>
           <LogoCollection />
-          <Features />
+          {/*<Features />*/}
           <Divider />
           <Testimonials />
           <Divider />
